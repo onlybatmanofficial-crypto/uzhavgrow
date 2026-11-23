@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UzhavGrow</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Noto+Sans+Tamil:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;font-family:'Inter','Noto Sans Tamil','Noto Sans Devanagari',system-ui,sans-serif;color:#17302B;background:#F6F8F7;line-height:1.6}
+a{color:inherit}
+.hd{font-family:'Space Grotesk','Noto Sans Tamil','Noto Sans Devanagari',system-ui,sans-serif}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px;box-sizing:border-box}
+.nav{text-decoration:none;color:#C9DDD6;padding:8px 2px}
+.nav:hover{color:#FFFFFF}
+.lang{font:inherit;font-size:14px;font-weight:600;border:1px solid #4F7A6E;border-radius:8px;padding:9px 14px;min-height:44px;cursor:pointer}
+.lang:hover{border-color:#9FD9C4}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 24px;border-radius:10px;font-weight:600;font-size:16px;text-decoration:none;box-sizing:border-box}
+.btn:hover{filter:brightness(1.08)}
+a:focus-visible,button:focus-visible{outline:3px solid #8FD3FF;outline-offset:2px}
+.card{background:#FFFFFF;border:1px solid #D6E4DD;border-radius:12px;box-sizing:border-box}
+.tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;color:#5B746C;background:#EDF3F0;border-radius:6px;padding:3px 8px}
+@keyframes sweep{from{transform:translateX(0)}to{transform:translateX(250px)}}
+@keyframes flow{to{stroke-dashoffset:-18}}
+@keyframes ping{from{transform:scale(.4);opacity:.9}to{transform:scale(2.4);opacity:0}}
+@keyframes pulse{50%{opacity:.5}}
+.sweep{animation:sweep 6s ease-in-out infinite alternate}
+.flow{stroke-dasharray:8 10;animation:flow 1.1s linear infinite}
+.ping{transform-box:fill-box;transform-origin:center;animation:ping 2.6s ease-out infinite}
+.pulse{animation:pulse 2.2s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.sweep,.flow,.ping,.pulse{animation:none}}
+</style>
+</helmet>
+
+<div lang="{{code}}" style="min-width:0">
+
+<!-- HERO -->
+<section id="top" style="background:linear-gradient(160deg,#0B2B27 0%,#0E3B35 60%,#114B3F 100%);color:#F2F7F5">
+<div class="wrap">
+<header style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding:20px 0">
+<a href="#top" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#FFFFFF">
+<svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="#4ADE9A" stroke-width="2"></circle><path d="M9 21c0-7 5-11 14-11 0 8-4 13-11 13-1 0-2-.5-3-2z" fill="#4ADE9A"></path></svg>
+<span class="hd" style="font-size:22px;font-weight:700;letter-spacing:-.01em">UzhavGrow</span>
+</a>
+<nav style="display:flex;flex-wrap:wrap;gap:4px 20px;font-size:15px">
+<a class="nav" href="#problem">{{t.navProblem}}</a>
+<a class="nav" href="#how">{{t.navHow}}</a>
+<a class="nav" href="#tech">{{t.navTech}}</a>
+<a class="nav" href="#market">{{t.navMarket}}</a>
+<a class="nav" href="#model">{{t.navModel}}</a>
+<a class="nav" href="#join">{{t.navJoin}}</a>
+</nav>
+<div role="group" aria-label="Language" style="display:flex;gap:6px">
+<sc-for list="{{langs}}" as="l" hint-placeholder-count="3">
+<button class="lang" onClick="{{l.pick}}" aria-pressed="{{l.pressed}}" style="background:{{l.bg}};color:{{l.fg}}">{{l.label}}</button>
+</sc-for>
+</div>
+</header>
+
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:40px;padding:40px 0 72px">
+<div style="flex:1 1 440px;min-width:0">
+<div style="font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4ADE9A">{{t.heroEyebrow}}</div>
+<h1 class="hd" style="margin:14px 0 20px;font-size:clamp(32px,4.6vw,54px);line-height:1.2;font-weight:700;letter-spacing:-.01em;text-wrap:balance;color:#FFFFFF">{{t.heroTitle}}</h1>
+<p style="margin:0 0 28px;font-size:18px;line-height:1.65;color:#C9DDD6;max-width:560px">{{t.heroSub}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px">
+<a class="btn" href="#join" style="background:#4ADE9A;color:#06231D">{{t.cta1}}</a>
+<a class="btn" href="#how" style="border:1px solid #6FA596;color:#F2F7F5">{{t.cta2}}</a>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:32px;font-size:14px;color:#C9DDD6">
+<span style="display:inline-flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#7CC14F"></span>{{t.chipCrop}}</span>
+<span style="display:inline-flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#4FB3F0"></span>{{t.chipWater}}</span>
+<span style="display:inline-flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#D9A25B"></span>{{t.chipSoil}}</span>
+</div>
+</div>
+
+<div style="flex:1 1 380px;min-width:0">
+<svg viewBox="0 0 520 470" role="img" aria-label="{{t.heroCaption}}" style="width:100%;height:auto;display:block;max-width:560px;margin:0 auto">
+<defs>
+<radialGradient id="earthG" cx="38%" cy="32%" r="80%"><stop offset="0" stop-color="#2F8F5E"></stop><stop offset="1" stop-color="#0A332C"></stop></radialGradient>
+<clipPath id="earthClip"><circle cx="260" cy="240" r="150"></circle></clipPath>
+<linearGradient id="scanG" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#9BF5C8" stop-opacity="0"></stop><stop offset=".5" stop-color="#9BF5C8" stop-opacity=".5"></stop><stop offset="1" stop-color="#9BF5C8" stop-opacity="0"></stop></linearGradient>
+</defs>
+<circle cx="260" cy="240" r="172" fill="none" stroke="#4ADE9A" stroke-opacity=".12" stroke-width="22"></circle>
+<circle cx="260" cy="240" r="150" fill="url(#earthG)"></circle>
+<g clip-path="url(#earthClip)">
+<g transform="rotate(-14 260 240)" opacity=".9">
+<rect x="102" y="82" width="76" height="76" fill="#3F9B5E"></rect><rect x="182" y="82" width="76" height="76" fill="#7CB851"></rect><rect x="262" y="82" width="76" height="76" fill="#2F8A52"></rect><rect x="342" y="82" width="76" height="76" fill="#B5C95A"></rect>
+<rect x="102" y="162" width="76" height="76" fill="#5CAA57"></rect><rect x="182" y="162" width="76" height="76" fill="#2A7F4D"></rect><rect x="262" y="162" width="76" height="76" fill="#9CC255"></rect><rect x="342" y="162" width="76" height="76" fill="#3B9559"></rect>
+<rect x="102" y="242" width="76" height="76" fill="#D1C259"></rect><rect x="182" y="242" width="76" height="76" fill="#4B9F58"></rect><rect x="262" y="242" width="76" height="76" fill="#2E8650"></rect><rect x="342" y="242" width="76" height="76" fill="#83B853"></rect>
+<rect x="102" y="322" width="76" height="76" fill="#368F55"></rect><rect x="182" y="322" width="76" height="76" fill="#A5C656"></rect><rect x="262" y="322" width="76" height="76" fill="#4E9F5A"></rect><rect x="342" y="322" width="76" height="76" fill="#2C7D4B"></rect>
+</g>
+<path d="M120 300 C180 270 230 330 300 290 S380 270 420 300" fill="none" stroke="#4FB3F0" stroke-width="3" stroke-opacity=".9"></path>
+<ellipse cx="260" cy="240" rx="150" ry="52" fill="none" stroke="#FFFFFF" stroke-opacity=".14"></ellipse>
+<ellipse cx="260" cy="240" rx="52" ry="150" fill="none" stroke="#FFFFFF" stroke-opacity=".14"></ellipse>
+<rect class="sweep" x="100" y="90" width="70" height="300" fill="url(#scanG)"></rect>
+</g>
+<circle cx="318" cy="292" r="5" fill="#FFE08A"></circle>
+<circle class="ping" cx="318" cy="292" r="12" fill="none" stroke="#FFE08A" stroke-width="2"></circle>
+<circle cx="214" cy="190" r="5" fill="#FFE08A"></circle>
+<circle class="ping" cx="214" cy="190" r="12" fill="none" stroke="#FFE08A" stroke-width="2" style="animation-delay:1.2s"></circle>
+<g transform="rotate(-18 260 240)">
+<ellipse cx="260" cy="240" rx="240" ry="78" fill="none" stroke="#9FD9C4" stroke-opacity=".5" stroke-dasharray="3 7"></ellipse>
+<g>
+<animateMotion dur="14s" repeatCount="indefinite" path="M20,240 A240,78 0 1,1 500,240 A240,78 0 1,1 20,240 Z"></animateMotion>
+<rect x="-6" y="-5" width="12" height="10" rx="2" fill="#EAF4F0"></rect><rect x="-24" y="-3" width="15" height="6" fill="#5CC6FF"></rect><rect x="9" y="-3" width="15" height="6" fill="#5CC6FF"></rect>
+</g>
+<g>
+<animateMotion dur="14s" begin="-7s" repeatCount="indefinite" path="M20,240 A240,78 0 1,1 500,240 A240,78 0 1,1 20,240 Z"></animateMotion>
+<rect x="-6" y="-5" width="12" height="10" rx="2" fill="#EAF4F0"></rect><rect x="-24" y="-3" width="15" height="6" fill="#FFD36B"></rect><rect x="9" y="-3" width="15" height="6" fill="#FFD36B"></rect>
+</g>
+</g>
+</svg>
+<div style="text-align:center;font-size:13px;color:#A9C4BC;margin-top:6px">{{t.heroCaption}}</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem" style="background:#F6F8F7;padding:80px 0">
+<div class="wrap">
+<h2 class="hd" style="margin:0 0 12px;font-size:clamp(28px,3.4vw,40px);line-height:1.25;font-weight:600;text-wrap:balance">{{t.probTitle}}</h2>
+<p style="margin:0 0 36px;font-size:18px;color:#4B645C;max-width:640px">{{t.probSub}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:20px">
+<sc-for list="{{problems}}" as="p" hint-placeholder-count="4">
+<div class="card" style="flex:1 1 240px;min-width:0;padding:24px">
+<h3 class="hd" style="margin:0 0 10px;font-size:20px;line-height:1.3;font-weight:600">{{p.title}}</h3>
+<p style="margin:0;font-size:15.5px;color:#4B645C">{{p.body}}</p>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- HOW -->
+<section id="how" style="background:#FFFFFF;padding:80px 0">
+<div class="wrap">
+<h2 class="hd" style="margin:0 0 12px;font-size:clamp(28px,3.4vw,40px);line-height:1.25;font-weight:600;text-wrap:balance">{{t.howTitle}}</h2>
+<p style="margin:0 0 40px;font-size:18px;color:#4B645C;max-width:640px">{{t.howSub}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:20px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="6">
+<div style="flex:1 1 320px;min-width:0;display:flex;gap:16px;padding:22px;background:#F6F8F7;border:1px solid #DCE8E2;border-radius:12px;box-sizing:border-box">
+<div class="hd" style="flex:none;width:40px;height:40px;border-radius:50%;background:#0B2B27;color:#4ADE9A;font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center">{{s.n}}</div>
+<div style="min-width:0">
+<h3 class="hd" style="margin:0 0 6px;font-size:19px;line-height:1.3;font-weight:600">{{s.title}}</h3>
+<p style="margin:0;font-size:15.5px;color:#4B645C">{{s.body}}</p>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- TECH: satellite maps -->
+<section id="tech" style="background:#E8F1EC;padding:80px 0">
+<div class="wrap">
+<h2 class="hd" style="margin:0 0 12px;font-size:clamp(28px,3.4vw,40px);line-height:1.25;font-weight:600;text-wrap:balance">{{t.techTitle}}</h2>
+<p style="margin:0 0 40px;font-size:18px;color:#3F5A52;max-width:680px">{{t.techSub}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:20px">
+
+<div class="card" style="flex:1 1 320px;min-width:0;padding:18px">
+<div style="margin-bottom:12px"><span class="tag">{{t.tag}}</span></div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2px;border-radius:8px;overflow:hidden;background:#FFFFFF">
+<sc-for list="{{cropCells}}" as="c" hint-placeholder-count="96">
+<div class="{{c.cls}}" style="aspect-ratio:1;background:{{c.bg}}"></div>
+</sc-for>
+</div>
+<h3 class="hd" style="margin:18px 0 8px;font-size:20px;line-height:1.3;font-weight:600">{{t.p1Title}}</h3>
+<p style="margin:0 0 14px;font-size:15px;color:#4B645C">{{t.p1Body}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:#4B645C">
+<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#D64545"></span>{{t.legStress}}</span>
+<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#E8B33A"></span>{{t.legMid}}</span>
+<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#1F8A4C"></span>{{t.legGood}}</span>
+</div>
+</div>
+
+<div class="card" style="flex:1 1 320px;min-width:0;padding:18px">
+<div style="margin-bottom:12px"><span class="tag">{{t.tag}}</span></div>
+<svg viewBox="0 0 360 240" role="img" aria-label="{{t.p2Title}}" style="width:100%;height:auto;display:block;border-radius:8px">
+<rect width="360" height="240" fill="#EAF2EE"></rect>
+<ellipse cx="90" cy="60" rx="86" ry="62" fill="none" stroke="#C5D9CF" stroke-width="1.5"></ellipse>
+<ellipse cx="90" cy="60" rx="62" ry="44" fill="none" stroke="#C5D9CF" stroke-width="1.5"></ellipse>
+<ellipse cx="90" cy="60" rx="38" ry="26" fill="none" stroke="#C5D9CF" stroke-width="1.5"></ellipse>
+<ellipse cx="90" cy="60" rx="14" ry="9" fill="#D3E3DA" stroke="#C5D9CF" stroke-width="1.5"></ellipse>
+<ellipse cx="290" cy="62" rx="58" ry="36" fill="#E3A21A" fill-opacity=".22" stroke="#B9800F" stroke-dasharray="4 4"></ellipse>
+<path d="M70,80 C90,130 120,150 150,190 S200,226 232,232" fill="none" stroke="#1B78B8" stroke-opacity=".25" stroke-width="4"></path>
+<path class="flow" d="M70,80 C90,130 120,150 150,190 S200,226 232,232" fill="none" stroke="#1B78B8" stroke-width="3"></path>
+<path d="M130,40 C190,70 250,86 300,124 S340,170 350,196" fill="none" stroke="#1B78B8" stroke-opacity=".25" stroke-width="3"></path>
+<path class="flow" d="M130,40 C190,70 250,86 300,124 S340,170 350,196" fill="none" stroke="#4FB3F0" stroke-width="2"></path>
+<path d="M90,60 C120,110 170,120 210,160 S300,212 340,226" fill="none" stroke="#1B78B8" stroke-opacity=".3" stroke-width="8"></path>
+<path class="flow" d="M90,60 C120,110 170,120 210,160 S300,212 340,226" fill="none" stroke="#0F5A8C" stroke-width="5"></path>
+<circle cx="210" cy="160" r="6" fill="#0B2B27" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle class="ping" cx="210" cy="160" r="9" fill="none" stroke="#1B78B8" stroke-width="2"></circle>
+<circle cx="290" cy="62" r="6" fill="#0B2B27" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle cx="116" cy="198" r="6" fill="#0B2B27" stroke="#FFFFFF" stroke-width="2"></circle>
+<text x="132" y="136" font-size="13" font-weight="700" fill="#0F5A8C" stroke="#EAF2EE" stroke-width="3" paint-order="stroke">{{t.lblHigh}}</text>
+<text x="262" y="30" font-size="13" font-weight="700" fill="#7A5200" stroke="#EAF2EE" stroke-width="3" paint-order="stroke">{{t.lblLow}}</text>
+<text x="126" y="214" font-size="12" font-weight="600" fill="#0B2B27" stroke="#EAF2EE" stroke-width="3" paint-order="stroke">{{t.lblSensor}}</text>
+</svg>
+<h3 class="hd" style="margin:18px 0 8px;font-size:20px;line-height:1.3;font-weight:600">{{t.p2Title}}</h3>
+<p style="margin:0 0 14px;font-size:15px;color:#4B645C">{{t.p2Body}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:#4B645C">
+<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:18px;height:5px;border-radius:3px;background:#0F5A8C"></span>{{t.lblHigh}}</span>
+<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#E9C169"></span>{{t.lblLow}}</span>
+</div>
+</div>
+
+<div class="card" style="flex:1 1 320px;min-width:0;padding:18px">
+<div style="margin-bottom:12px"><span class="tag">{{t.tag}}</span></div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2px;border-radius:8px;overflow:hidden;background:#FFFFFF">
+<sc-for list="{{soilCells}}" as="c" hint-placeholder-count="96">
+<div style="aspect-ratio:1;background:{{c.bg}}"></div>
+</sc-for>
+</div>
+<h3 class="hd" style="margin:18px 0 8px;font-size:20px;line-height:1.3;font-weight:600">{{t.p3Title}}</h3>
+<p style="margin:0 0 14px;font-size:15px;color:#4B645C">{{t.p3Body}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:#4B645C">
+<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#E9D8B4"></span>{{t.legSoilLow}}</span>
+<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#B58A55"></span>{{t.legMid}}</span>
+<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#6E4526"></span>{{t.legSoilRich}}</span>
+</div>
+<div style="margin-top:6px;font-size:12.5px;color:#6A8077">{{t.soilNote}}</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- IOT + DRONES -->
+<section id="field" style="background:#F6F8F7;padding:80px 0">
+<div class="wrap">
+<h2 class="hd" style="margin:0 0 12px;font-size:clamp(28px,3.4vw,40px);line-height:1.25;font-weight:600;text-wrap:balance">{{t.iotTitle}}</h2>
+<p style="margin:0 0 40px;font-size:18px;color:#4B645C;max-width:640px">{{t.iotSub}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:stretch">
+<div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{sensors}}" as="s" hint-placeholder-count="4">
+<div class="card" style="display:flex;gap:14px;align-items:flex-start;padding:18px 20px">
+<span style="flex:none;width:12px;height:12px;border-radius:50%;background:{{s.color}};margin-top:7px"></span>
+<div style="min-width:0">
+<h3 class="hd" style="margin:0 0 4px;font-size:18px;line-height:1.3;font-weight:600">{{s.title}}</h3>
+<p style="margin:0;font-size:15px;color:#4B645C">{{s.body}}</p>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="flex:1 1 340px;min-width:0;background:#0B2B27;color:#F2F7F5;border-radius:12px;padding:24px;box-sizing:border-box">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 12px;margin-bottom:18px">
+<h3 class="hd" style="margin:0;font-size:20px;font-weight:600">{{t.readTitle}}</h3>
+<span style="font-size:12.5px;color:#A9C4BC">{{t.readNote}}</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:12px">
+<div style="flex:1 1 90px;min-width:0;background:#12403A;border-radius:10px;padding:14px">
+<div style="font-size:12.5px;color:#A9C4BC">{{t.s1Title}}</div>
+<div class="hd" style="font-size:28px;font-weight:600;color:#7DD3FC">34 %</div>
+</div>
+<div style="flex:1 1 90px;min-width:0;background:#12403A;border-radius:10px;padding:14px">
+<div style="font-size:12.5px;color:#A9C4BC">pH</div>
+<div class="hd" style="font-size:28px;font-weight:600;color:#9BE564">6.5</div>
+</div>
+<div style="flex:1 1 90px;min-width:0;background:#12403A;border-radius:10px;padding:14px">
+<div style="font-size:12.5px;color:#A9C4BC">{{t.airTemp}}</div>
+<div class="hd" style="font-size:28px;font-weight:600;color:#FFD36B">31 °C</div>
+</div>
+</div>
+<div style="margin-top:16px;border-radius:10px;border:1px solid #E3A21A;background:#2A2A14;padding:14px 16px">
+<div style="font-size:12.5px;font-weight:700;letter-spacing:.06em;color:#FFD36B;text-transform:uppercase">{{t.alertTitle}}</div>
+<div style="margin-top:4px;font-size:15.5px;color:#FFF3D1">{{t.alertBody}}</div>
+</div>
+</div>
+</div>
+
+<div class="card" style="margin-top:24px;padding:24px;display:flex;flex-wrap:wrap;align-items:center;gap:28px">
+<div style="flex:1 1 300px;min-width:0">
+<h3 class="hd" style="margin:0 0 8px;font-size:22px;line-height:1.3;font-weight:600">{{t.droneTitle}}</h3>
+<p style="margin:0;font-size:15.5px;color:#4B645C">{{t.droneBody}}</p>
+</div>
+<div style="flex:1 1 320px;min-width:0">
+<svg viewBox="0 0 320 150" role="img" aria-label="{{t.droneTitle}}" style="width:100%;height:auto;display:block;border-radius:8px">
+<rect width="320" height="150" fill="#EAF2EE"></rect>
+<rect x="14" y="14" width="140" height="58" rx="3" fill="#7CB851"></rect><rect x="166" y="14" width="140" height="58" rx="3" fill="#3F9B5E"></rect>
+<rect x="14" y="80" width="90" height="56" rx="3" fill="#A5C656"></rect><rect x="112" y="80" width="94" height="56" rx="3" fill="#4B9F58"></rect><rect x="214" y="80" width="92" height="56" rx="3" fill="#2E8650"></rect>
+<path d="M24,28 L296,28 L296,50 L24,50 L24,72 L296,72 L296,94 L24,94 L24,116 L296,116" fill="none" stroke="#FFFFFF" stroke-opacity=".85" stroke-width="2" stroke-dasharray="3 5"></path>
+<g>
+<animateMotion dur="12s" repeatCount="indefinite" path="M24,28 L296,28 L296,50 L24,50 L24,72 L296,72 L296,94 L24,94 L24,116 L296,116 L24,28"></animateMotion>
+<circle r="9" fill="#0B2B27" fill-opacity=".25"></circle>
+<rect x="-5" y="-5" width="10" height="10" rx="2" fill="#0B2B27"></rect>
+<circle cx="-9" cy="-9" r="4" fill="#FFFFFF" stroke="#0B2B27"></circle><circle cx="9" cy="-9" r="4" fill="#FFFFFF" stroke="#0B2B27"></circle><circle cx="-9" cy="9" r="4" fill="#FFFFFF" stroke="#0B2B27"></circle><circle cx="9" cy="9" r="4" fill="#FFFFFF" stroke="#0B2B27"></circle>
+</g>
+</svg>
+</div>
+</div>
+</div>
+</section>
+
+<!-- MARKET -->
+<section id="market" style="background:#FFFFFF;padding:80px 0">
+<div class="wrap" style="display:flex;flex-wrap:wrap;gap:40px;align-items:center">
+<div style="flex:1 1 360px;min-width:0">
+<h2 class="hd" style="margin:0 0 14px;font-size:clamp(28px,3.4vw,40px);line-height:1.25;font-weight:600;text-wrap:balance">{{t.mktTitle}}</h2>
+<p style="margin:0;font-size:17px;color:#4B645C">{{t.mktBody}}</p>
+</div>
+<div class="card" style="flex:1 1 420px;min-width:0;padding:24px;background:#F6F8F7">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 12px;margin-bottom:16px">
+<h3 class="hd" style="margin:0;font-size:17px;font-weight:600">{{t.chartTitle}}</h3>
+<div style="display:flex;gap:14px;font-size:13px;color:#4B645C">
+<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#2E9D5C"></span>{{t.serHarvest}}</span>
+<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#E3A21A"></span>{{t.serDemand}}</span>
+</div>
+</div>
+<div style="height:180px;display:flex;align-items:flex-end;gap:12px;background:repeating-linear-gradient(to top,#DCE8E2 0 1px,transparent 1px 45px)">
+<sc-for list="{{bars}}" as="b" hint-placeholder-count="6">
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:flex-end;justify-content:center;gap:4px">
+<div style="width:42%;height:{{b.h}};background:#2E9D5C;border-radius:3px 3px 0 0"></div>
+<div style="width:42%;height:{{b.d}};background:#E3A21A;border-radius:3px 3px 0 0"></div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;gap:12px;margin-top:6px">
+<sc-for list="{{bars}}" as="b" hint-placeholder-count="6">
+<div style="flex:1;min-width:0;text-align:center;font-size:12.5px;color:#4B645C">{{b.n}}</div>
+</sc-for>
+</div>
+<div style="text-align:center;font-size:12.5px;color:#6A8077;margin-top:2px">{{t.week}}</div>
+<p style="margin:16px 0 0;font-size:14.5px;color:#4B645C">{{t.chartNote}}</p>
+</div>
+</div>
+</section>
+
+<!-- LOSS -->
+<section id="loss" style="background:#E8F1EC;padding:80px 0">
+<div class="wrap">
+<h2 class="hd" style="margin:0 0 12px;font-size:clamp(28px,3.4vw,40px);line-height:1.25;font-weight:600;text-wrap:balance">{{t.lossTitle}}</h2>
+<p style="margin:0 0 48px;font-size:18px;color:#3F5A52;max-width:640px">{{t.lossSub}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:24px">
+<sc-for list="{{chain}}" as="c" hint-placeholder-count="4">
+<div style="flex:1 1 220px;min-width:0;position:relative;border-top:2px solid #7DB59C;padding-top:22px">
+<span style="position:absolute;top:-8px;left:0;width:14px;height:14px;border-radius:50%;background:#2E9D5C;border:3px solid #E8F1EC;box-sizing:content-box"></span>
+<h3 class="hd" style="margin:0;font-size:19px;line-height:1.35;font-weight:600">{{c.title}}</h3>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- MODEL -->
+<section id="model" style="background:#FFFFFF;padding:80px 0">
+<div class="wrap">
+<h2 class="hd" style="margin:0 0 12px;font-size:clamp(28px,3.4vw,40px);line-height:1.25;font-weight:600;text-wrap:balance">{{t.modelTitle}}</h2>
+<p style="margin:0 0 40px;font-size:18px;color:#4B645C;max-width:640px">{{t.modelSub}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:20px">
+<div class="card" style="flex:1 1 360px;min-width:0;padding:28px">
+<h3 class="hd" style="margin:0 0 16px;font-size:22px;font-weight:600;color:#1E7A46">{{t.forFarmer}}</h3>
+<div style="display:flex;flex-direction:column;gap:12px">
+<sc-for list="{{farmerPoints}}" as="f" hint-placeholder-count="4">
+<div style="display:flex;gap:12px;align-items:flex-start;font-size:16px"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" style="flex:none;margin-top:3px"><circle cx="10" cy="10" r="10" fill="#DDF3E6"></circle><path d="M5.5 10.5l3 3 6-6.5" fill="none" stroke="#1E7A46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="min-width:0">{{f.text}}</span></div>
+</sc-for>
+</div>
+</div>
+<div style="flex:1 1 360px;min-width:0;padding:28px;background:#0B2B27;color:#F2F7F5;border-radius:12px;box-sizing:border-box">
+<h3 class="hd" style="margin:0 0 16px;font-size:22px;font-weight:600;color:#4ADE9A">{{t.forCompany}}</h3>
+<div style="display:flex;flex-direction:column;gap:12px">
+<sc-for list="{{companyPoints}}" as="f" hint-placeholder-count="4">
+<div style="display:flex;gap:12px;align-items:flex-start;font-size:16px"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" style="flex:none;margin-top:3px"><circle cx="10" cy="10" r="10" fill="#14463E"></circle><path d="M5.5 10.5l3 3 6-6.5" fill="none" stroke="#4ADE9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="min-width:0">{{f.text}}</span></div>
+</sc-for>
+</div>
+</div>
+</div>
+<div style="margin-top:20px;padding:24px 28px;background:#E8F1EC;border-radius:12px;display:flex;flex-wrap:wrap;gap:12px 32px;align-items:center">
+<h3 class="hd" style="flex:1 1 240px;min-width:0;margin:0;font-size:21px;line-height:1.3;font-weight:600">{{t.coopTitle}}</h3>
+<p style="flex:2 1 360px;min-width:0;margin:0;font-size:16px;color:#3F5A52">{{t.coopBody}}</p>
+</div>
+</div>
+</section>
+
+<!-- JOIN + FOOTER -->
+<section id="join" style="background:linear-gradient(160deg,#0B2B27 0%,#0E3B35 100%);color:#F2F7F5;padding:80px 0 32px">
+<div class="wrap">
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+<div style="flex:1 1 420px;min-width:0">
+<h2 class="hd" style="margin:0 0 14px;font-size:clamp(28px,3.4vw,40px);line-height:1.25;font-weight:600;color:#FFFFFF;text-wrap:balance">{{t.joinTitle}}</h2>
+<p style="margin:0 0 28px;font-size:17.5px;color:#C9DDD6;max-width:540px">{{t.joinBody}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px">
+<a class="btn" href="#join" style="background:#4ADE9A;color:#06231D">{{t.cta1}}</a>
+<a class="btn" href="#join" style="border:1px solid #6FA596;color:#F2F7F5">{{t.btnPartner}}</a>
+</div>
+</div>
+<div style="flex:1 1 320px;min-width:0;background:#12403A;border-radius:12px;padding:24px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px">
+<div><div style="font-size:12.5px;color:#A9C4BC;letter-spacing:.06em;text-transform:uppercase">{{t.ctEmail}}</div><div style="font-size:17px;word-break:break-word">info.uzhavgrow@gmail.com</div></div>
+<div><div style="font-size:12.5px;color:#A9C4BC;letter-spacing:.06em;text-transform:uppercase">{{t.ctPhone}}</div><div style="font-size:17px">+91 96775 53361</div></div>
+</div>
+</div>
+<div style="margin-top:64px;padding-top:20px;border-top:1px solid #2C5C52;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:14px;color:#A9C4BC">
+<span>UzhavGrow · {{t.footTag}}</span>
+<span>{{t.footNote}}</span>
+</div>
+</div>
+</section>
+
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":6000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const lang = (this.state && this.state.lang) || 'en';
+    const idx = { en: 0, ta: 1, hi: 2 }[lang];
+    const pick = (a) => a[idx];
+
+    const S = {
+      navProblem: ["The problem", "பிரச்சனை", "समस्या"],
+      navHow: ["How it works", "செயல்படும் முறை", "यह कैसे काम करता है"],
+      navTech: ["Technology", "தொழில்நுட்பம்", "तकनीक"],
+      navMarket: ["Market", "சந்தை", "बाज़ार"],
+      navModel: ["Win-win model", "இருவருக்கும் லாபம்", "सबके लिए लाभ"],
+      navJoin: ["Join", "இணையுங்கள்", "जुड़ें"],
+      heroEyebrow: ["Farm-to-market partnership", "வயலிலிருந்து சந்தை வரை கூட்டாண்மை", "खेत से बाज़ार तक साझेदारी"],
+      heroTitle: ["Satellite insight and a committed buyer for every small farm", "ஒவ்வொரு சிறு விவசாயிக்கும் செயற்கைக்கோள் தகவலும், விளைச்சலை வாங்கும் உறுதியும்", "हर छोटे किसान के लिए सैटेलाइट की जानकारी और फसल खरीद की पक्की प्रतिबद्धता"],
+      heroSub: [
+        "UzhavGrow supplies tested inputs, guides each crop with AI, satellites and field sensors, and buys the harvest to sell directly to supermarkets and customers. Fewer middlemen, less loss, better income.",
+        "UzhavGrow சோதிக்கப்பட்ட இடுபொருட்களை வழங்குகிறது; AI, செயற்கைக்கோள் மற்றும் வயல் சென்சார்கள் மூலம் ஒவ்வொரு பயிரையும் வழிநடத்துகிறது; விளைச்சலை வாங்கி பல்பொருள் அங்காடிகளுக்கும் வாடிக்கையாளர்களுக்கும் நேரடியாக விற்கிறது. இடைத்தரகர்கள் குறைவு, இழப்பு குறைவு, வருமானம் அதிகம்.",
+        "UzhavGrow जांची हुई खेती की सामग्री देता है, AI, सैटेलाइट और खेत के सेंसर से हर फसल का मार्गदर्शन करता है, और उपज खरीदकर सीधे सुपरमार्केट और ग्राहकों को बेचता है। कम बिचौलिए, कम नुकसान, बेहतर आमदनी।"
+      ],
+      cta1: ["Join as a farmer", "விவசாயியாக இணையுங்கள்", "किसान के रूप में जुड़ें"],
+      cta2: ["See how it works", "எப்படி செயல்படுகிறது", "देखें यह कैसे काम करता है"],
+      heroCaption: ["Illustrative view: satellite pass over a farm cluster", "எடுத்துக்காட்டு காட்சி: விவசாய தொகுப்பின் மீது செயற்கைக்கோள் பயணம்", "उदाहरण दृश्य: खेतों के समूह के ऊपर सैटेलाइट"],
+      chipCrop: ["Crop health", "பயிர் ஆரோக்கியம்", "फसल की सेहत"],
+      chipWater: ["Water flow", "நீர் ஓட்டம்", "पानी का बहाव"],
+      chipSoil: ["Soil quality", "மண் தரம்", "मिट्टी की गुणवत्ता"],
+      probTitle: ["Why small farms lose out", "சிறு விவசாயிகள் ஏன் பின்தங்குகிறார்கள்", "छोटे किसान क्यों पिछड़ जाते हैं"],
+      probSub: ["Four gaps keep income low, even when the harvest is good.", "அறுவடை நன்றாக இருந்தாலும் வருமானம் குறைவாக இருப்பதற்கு நான்கு இடைவெளிகள் காரணம்.", "फसल अच्छी होने पर भी चार कमियां आमदनी को कम रखती हैं।"],
+      howTitle: ["How UzhavGrow works", "UzhavGrow எப்படி செயல்படுகிறது", "UzhavGrow कैसे काम करता है"],
+      howSub: ["One season contract covers everything from seed to supermarket shelf.", "ஒரே பருவ ஒப்பந்தம் விதை முதல் அங்காடி அலமாரி வரை அனைத்தையும் உள்ளடக்குகிறது.", "एक सीज़न का अनुबंध बीज से लेकर सुपरमार्केट की शेल्फ तक सब कुछ कवर करता है।"],
+      techTitle: ["See every plot from orbit and from the soil", "ஒவ்வொரு நிலத்தையும் விண்ணிலிருந்தும் மண்ணிலிருந்தும் பாருங்கள்", "हर खेत को अंतरिक्ष से भी देखें और मिट्टी से भी"],
+      techSub: ["Satellite layers and field sensors are combined by AI into plain advice for each farmer.", "செயற்கைக்கோள் அடுக்குகளும் வயல் சென்சார்களும் AI மூலம் இணைக்கப்பட்டு, ஒவ்வொரு விவசாயிக்கும் எளிய ஆலோசனையாக வழங்கப்படுகின்றன.", "सैटेलाइट परतें और खेत के सेंसर AI से मिलकर हर किसान के लिए सरल सलाह बनते हैं।"],
+      tag: ["Illustrative view", "எடுத்துக்காட்டு காட்சி", "उदाहरण दृश्य"],
+      p1Title: ["Crop growth analysis", "பயிர் வளர்ச்சி பகுப்பாய்வு", "फसल विकास विश्लेषण"],
+      p1Body: ["Satellite images show crop vigour plot by plot. Weak patches show up in red before the eye can see them.", "செயற்கைக்கோள் படங்கள் ஒவ்வொரு நிலத்திலும் பயிரின் வீரியத்தைக் காட்டுகின்றன. கண்ணுக்குத் தெரியும் முன்பே பலவீனமான பகுதிகள் சிவப்பாகத் தெரியும்.", "सैटेलाइट इमेज हर खेत में फसल की ताकत दिखाती हैं। आंखों से दिखने से पहले ही कमजोर हिस्से लाल दिखते हैं।"],
+      legStress: ["Stressed", "அழுத்தம்", "तनाव में"],
+      legMid: ["Moderate", "நடுத்தரம்", "मध्यम"],
+      legGood: ["Healthy", "ஆரோக்கியம்", "स्वस्थ"],
+      p2Title: ["Water flow analysis", "நீர் ஓட்ட பகுப்பாய்வு", "पानी के बहाव का विश्लेषण"],
+      p2Body: ["Terrain and rainfall data show where water gathers and where it runs short, so irrigation and drainage go where they matter.", "நிலத்தின் அமைப்பும் மழை தரவும் தண்ணீர் எங்கே சேர்கிறது, எங்கே குறைகிறது என்பதைக் காட்டுகின்றன; பாசனமும் வடிகாலும் தேவையான இடத்துக்குச் செல்கின்றன.", "भू-आकृति और बारिश का डेटा दिखाता है कि पानी कहां जमा होता है और कहां कम पड़ता है, ताकि सिंचाई और निकासी सही जगह हो।"],
+      lblHigh: ["High flow", "அதிக ஓட்டம்", "तेज़ बहाव"],
+      lblLow: ["Low flow", "குறைந்த ஓட்டம்", "कम बहाव"],
+      lblSensor: ["Sensor", "சென்சார்", "सेंसर"],
+      p3Title: ["Soil quality zones", "மண் தர மண்டலங்கள்", "मिट्टी की गुणवत्ता के क्षेत्र"],
+      p3Body: ["Soil tests and imagery are merged into zones, so fertiliser is matched to each part of the field.", "மண் சோதனைகளும் படங்களும் மண்டலங்களாக இணைக்கப்படுகின்றன; உரம் வயலின் ஒவ்வொரு பகுதிக்கும் ஏற்ப அளிக்கப்படுகிறது.", "मिट्टी की जांच और इमेज को क्षेत्रों में बांटा जाता है, ताकि खाद खेत के हर हिस्से के अनुसार दी जाए।"],
+      legSoilLow: ["Low", "குறைவு", "कम"],
+      legSoilRich: ["Rich", "வளமான", "उपजाऊ"],
+      soilNote: ["Organic matter and nutrients", "கரிமப் பொருள் மற்றும் ஊட்டச்சத்து", "जैविक पदार्थ और पोषक तत्व"],
+      iotTitle: ["Sensors and drones, shared across many farms", "பல விவசாயிகள் பகிரும் சென்சார்களும் ட்ரோன்களும்", "कई किसानों में साझा सेंसर और ड्रोन"],
+      iotSub: ["A single farmer cannot afford this equipment. A network of farms can.", "ஒரு விவசாயியால் இந்த கருவிகளை வாங்க முடியாது. விவசாயிகளின் வலையமைப்பால் முடியும்.", "अकेला किसान ये उपकरण नहीं खरीद सकता। खेतों का नेटवर्क खरीद सकता है।"],
+      s1Title: ["Soil moisture", "மண் ஈரப்பதம்", "मिट्टी की नमी"],
+      readTitle: ["Sample plot readout", "மாதிரி நில அறிக்கை", "नमूना खेत रिपोर्ट"],
+      readNote: ["Example values for illustration", "விளக்கத்துக்கான எடுத்துக்காட்டு மதிப்புகள்", "उदाहरण के लिए नमूना मान"],
+      airTemp: ["Air temperature", "காற்று வெப்பநிலை", "हवा का तापमान"],
+      alertTitle: ["AI alert", "AI எச்சரிக்கை", "AI चेतावनी"],
+      alertBody: ["Moisture is low in zone B. Irrigate within 24 hours.", "B மண்டலத்தில் ஈரப்பதம் குறைவு. 24 மணி நேரத்தில் பாசனம் செய்யுங்கள்.", "ज़ोन B में नमी कम है। 24 घंटे के भीतर सिंचाई करें।"],
+      droneTitle: ["Drone spraying and scouting", "ட்ரோன் தெளிப்பும் ஆய்வும்", "ड्रोन से छिड़काव और निरीक्षण"],
+      droneBody: ["One drone serves a whole cluster. Routes are planned across neighbouring farms, so the cost per acre falls and each plot gets only the spray it needs.", "ஒரு ட்ரோன் முழு தொகுப்புக்கும் சேவை செய்கிறது. அருகிலுள்ள பண்ணைகள் முழுவதும் பாதை திட்டமிடப்படுவதால் ஏக்கருக்கான செலவு குறைகிறது; ஒவ்வொரு நிலத்துக்கும் தேவையான அளவு மட்டுமே தெளிக்கப்படுகிறது.", "एक ड्रोन पूरे समूह को सेवा देता है। पास के खेतों में रूट बनाने से प्रति एकड़ लागत घटती है और हर खेत को उतना ही छिड़काव मिलता है जितना ज़रूरी है।"],
+      mktTitle: ["Grow what buyers will need", "வாங்குபவர்களுக்குத் தேவையானதை விளையுங்கள்", "वही उगाएं जो खरीदारों को चाहिए"],
+      mktBody: ["UzhavGrow compares the expected harvest from every plot with demand from supermarkets, processors and customers. Crop plans and selling dates follow that gap.", "ஒவ்வொரு நிலத்தின் எதிர்பார்க்கப்படும் அறுவடையையும் பல்பொருள் அங்காடிகள், பதப்படுத்துவோர், வாடிக்கையாளர்களின் தேவையையும் UzhavGrow ஒப்பிடுகிறது. பயிர்த் திட்டமும் விற்பனை தேதியும் அந்த இடைவெளியைப் பின்பற்றுகின்றன.", "UzhavGrow हर खेत की अपेक्षित उपज की तुलना सुपरमार्केट, प्रोसेसर और ग्राहकों की मांग से करता है। फसल योजना और बिक्री की तारीखें इसी अंतर के अनुसार तय होती हैं।"],
+      chartTitle: ["Harvest vs buyer demand (illustrative)", "அறுவடை மற்றும் வாங்குபவர் தேவை (எடுத்துக்காட்டு)", "उपज बनाम खरीदार मांग (उदाहरण)"],
+      serHarvest: ["Expected harvest", "எதிர்பார்க்கப்படும் அறுவடை", "अपेक्षित उपज"],
+      serDemand: ["Buyer demand", "வாங்குபவர் தேவை", "खरीदार की मांग"],
+      week: ["Week", "வாரம்", "सप्ताह"],
+      chartNote: ["Where harvest exceeds demand, selling moves to processors or other markets. Where demand is higher, the next sowing plan adjusts.", "அறுவடை தேவையைவிட அதிகமாக இருக்கும் இடத்தில் விற்பனை பதப்படுத்துவோருக்கோ பிற சந்தைகளுக்கோ மாறுகிறது. தேவை அதிகமாக இருந்தால் அடுத்த விதைப்புத் திட்டம் மாற்றப்படுகிறது.", "जहां उपज मांग से ज़्यादा हो, वहां बिक्री प्रोसेसरों या दूसरे बाज़ारों की ओर जाती है। जहां मांग ज़्यादा हो, वहां अगली बुवाई की योजना बदलती है।"],
+      lossTitle: ["Less damage between field and shelf", "வயலிலிருந்து அலமாரி வரை குறைந்த சேதம்", "खेत से शेल्फ तक कम नुकसान"],
+      lossSub: ["Every handoff removed is one less chance of bruising, delay and spoilage.", "நீக்கப்படும் ஒவ்வொரு கைமாற்றமும் அடிபடுதல், தாமதம், கெட்டுப்போதல் ஆகியவற்றுக்கான ஒரு வாய்ப்பைக் குறைக்கிறது.", "हर हटाया गया हाथ-बदल चोट, देरी और सड़ने का एक मौका कम कर देता है।"],
+      modelTitle: ["A win-win model", "இருவருக்கும் லாபம் தரும் மாதிரி", "दोनों के लिए फ़ायदे का मॉडल"],
+      modelSub: ["Farmers gain income and certainty. UzhavGrow gains steady, quality supply.", "விவசாயிகளுக்கு வருமானமும் உறுதியும். UzhavGrow க்கு நிலையான, தரமான விநியோகம்.", "किसानों को आमदनी और निश्चितता मिलती है। UzhavGrow को स्थिर और गुणवत्ता वाली आपूर्ति मिलती है।"],
+      forFarmer: ["For the farmer", "விவசாயிக்கு", "किसान के लिए"],
+      forCompany: ["For UzhavGrow", "UzhavGrow க்கு", "UzhavGrow के लिए"],
+      coopTitle: ["Farmers grow stronger together", "விவசாயிகள் ஒன்றிணைந்தால் வலிமை", "किसान साथ मिलकर मज़बूत"],
+      coopBody: ["Farms join in village clusters, similar to a farmer producer organisation. Clusters share drones and storage, and negotiate together.", "பண்ணைகள் கிராம தொகுப்புகளாக இணைகின்றன; இது விவசாயி உற்பத்தியாளர் அமைப்பைப் போன்றது. தொகுப்புகள் ட்ரோன்களையும் சேமிப்பையும் பகிர்ந்து ஒன்றாக பேரம் பேசுகின்றன.", "खेत गांव के समूहों में जुड़ते हैं, किसान उत्पादक संगठन की तरह। समूह ड्रोन और भंडारण साझा करते हैं और मिलकर मोलभाव करते हैं।"],
+      joinTitle: ["Start with one village cluster", "ஒரு கிராம தொகுப்புடன் தொடங்குவோம்", "एक गांव समूह से शुरुआत"],
+      joinBody: ["We begin with a pilot cluster, learn from one full season, then grow to more villages.", "ஒரு முன்னோடி தொகுப்புடன் தொடங்கி, ஒரு முழு பருவத்தில் கற்றுக்கொண்டு, பின்னர் அதிக கிராமங்களுக்கு விரிவுபடுத்துகிறோம்.", "हम एक पायलट समूह से शुरू करते हैं, एक पूरे सीज़न से सीखते हैं, फिर और गांवों तक बढ़ते हैं।"],
+      btnPartner: ["Partner with us", "எங்களுடன் கூட்டு சேருங்கள்", "हमारे साथ साझेदारी करें"],
+      ctEmail: ["Email", "மின்னஞ்சல்", "ईमेल"],
+      ctPhone: ["Phone", "தொலைபேசி", "फ़ोन"],
+      footTag: ["Better income for small farms, from seed to shelf.", "சிறு விவசாயிகளுக்கு விதை முதல் அலமாரி வரை சிறந்த வருமானம்.", "छोटे किसानों के लिए बीज से शेल्फ तक बेहतर आमदनी।"],
+      footNote: ["Images and values on this page are illustrations.", "இந்தப் பக்கத்தில் உள்ள படங்களும் மதிப்புகளும் எடுத்துக்காட்டுகள்.", "इस पेज की इमेज और मान उदाहरण मात्र हैं।"]
+    };
+    const t = {};
+    Object.keys(S).forEach((k) => { t[k] = pick(S[k]); });
+
+    const problemsSrc = [
+      [["Technology is out of reach", "தொழில்நுட்பம் எட்டாத தொலைவில்", "तकनीक पहुंच से बाहर"], ["Satellite imagery, drones and sensors are priced for large estates, not for one or two acres.", "செயற்கைக்கோள் படங்கள், ட்ரோன்கள், சென்சார்கள் ஆகியவை பெரிய பண்ணைகளுக்கான விலையில் உள்ளன; ஓரிரு ஏக்கர் விவசாயிக்கு அல்ல.", "सैटेलाइट इमेज, ड्रोन और सेंसर बड़े फार्मों के हिसाब से महंगे हैं, एक-दो एकड़ वाले किसान के लिए नहीं।"]],
+      [["Middlemen take the margin", "இடைத்தரகர்கள் லாபத்தை எடுக்கிறார்கள்", "बिचौलिए मुनाफ़ा ले जाते हैं"], ["Several traders sit between the field and the buyer, and the farmer receives the smallest share.", "வயலுக்கும் வாங்குபவருக்கும் இடையே பல வியாபாரிகள் உள்ளனர்; விவசாயிக்கு மிகச் சிறிய பங்கே கிடைக்கிறது.", "खेत और खरीदार के बीच कई व्यापारी होते हैं, और किसान को सबसे छोटा हिस्सा मिलता है।"]],
+      [["Losses after harvest", "அறுவடைக்குப் பிந்தைய இழப்பு", "कटाई के बाद का नुकसान"], ["Late harvest, rough handling and poor storage spoil produce before it reaches a buyer.", "தாமதமான அறுவடை, கரடுமுரடான கையாளுதல், மோசமான சேமிப்பு ஆகியவை விற்பனைக்கு முன்பே விளைபொருளை வீணாக்குகின்றன.", "देर से कटाई, खराब हैंडलिंग और कमजोर भंडारण से उपज खरीदार तक पहुंचने से पहले ही खराब हो जाती है।"]],
+      [["Growing without market signals", "சந்தை தகவல் இல்லாமல் சாகுபடி", "बाज़ार की जानकारी के बिना खेती"], ["Farmers pick crops without knowing what buyers will need at harvest time.", "அறுவடை நேரத்தில் வாங்குபவர்களுக்கு என்ன தேவைப்படும் என்று தெரியாமல் பயிரைத் தேர்ந்தெடுக்கிறார்கள்.", "किसान यह जाने बिना फसल चुनते हैं कि कटाई के समय खरीदारों को क्या चाहिए।"]]
+    ];
+    const problems = problemsSrc.map((p) => ({ title: pick(p[0]), body: pick(p[1]) }));
+
+    const stepsSrc = [
+      [["Sign the season contract", "பருவ ஒப்பந்தத்தில் கையெழுத்து", "सीज़न का अनुबंध"], ["The farmer joins with a simple contract. UzhavGrow commits to supply inputs, guide the crop and buy the harvest.", "விவசாயி எளிய ஒப்பந்தத்தில் இணைகிறார். இடுபொருட்கள் வழங்கவும், பயிரை வழிநடத்தவும், அறுவடையை வாங்கவும் UzhavGrow உறுதியளிக்கிறது.", "किसान एक सरल अनुबंध से जुड़ता है। UzhavGrow सामग्री देने, फसल का मार्गदर्शन करने और उपज खरीदने का वादा करता है।"]],
+      [["Supply tested inputs", "சோதிக்கப்பட்ட இடுபொருட்கள்", "जांची हुई सामग्री"], ["Seeds, fertiliser and crop protection come from one trusted source, bought in bulk at lower cost.", "விதை, உரம், பயிர் பாதுகாப்பு பொருட்கள் ஒரே நம்பகமான மூலத்திலிருந்து, மொத்தமாக வாங்கி குறைந்த விலையில் வருகின்றன.", "बीज, खाद और फसल सुरक्षा की सामग्री एक भरोसेमंद स्रोत से, थोक में कम कीमत पर मिलती है।"]],
+      [["Test and plan", "சோதனை மற்றும் திட்டம்", "जांच और योजना"], ["Soil and water tests decide the crop, variety and sowing date for each plot.", "மண் மற்றும் நீர் சோதனைகள் ஒவ்வொரு நிலத்துக்குமான பயிர், ரகம், விதைப்பு தேதியை முடிவு செய்கின்றன.", "मिट्टी और पानी की जांच हर खेत के लिए फसल, किस्म और बुवाई की तारीख तय करती है।"]],
+      [["Monitor every day", "தினமும் கண்காணிப்பு", "रोज़ निगरानी"], ["Satellites and field sensors track growth, moisture and stress. AI flags problems early.", "செயற்கைக்கோள்களும் வயல் சென்சார்களும் வளர்ச்சி, ஈரப்பதம், அழுத்தத்தைக் கண்காணிக்கின்றன. AI பிரச்சனைகளை முன்கூட்டியே எச்சரிக்கிறது.", "सैटेलाइट और खेत के सेंसर विकास, नमी और तनाव पर नज़र रखते हैं। AI समस्याओं की पहले ही चेतावनी देता है।"]],
+      [["Harvest and grade", "அறுவடை மற்றும் தரம் பிரித்தல்", "कटाई और ग्रेडिंग"], ["Data sets the harvest window. Produce is graded, packed and moved fast to limit damage.", "தரவு அறுவடை நேரத்தை தீர்மானிக்கிறது. சேதத்தைக் குறைக்க விளைபொருள் தரம் பிரிக்கப்பட்டு, பொதியிடப்பட்டு விரைவாக அனுப்பப்படுகிறது.", "डेटा कटाई का समय तय करता है। नुकसान घटाने के लिए उपज की ग्रेडिंग, पैकिंग और तेज़ ढुलाई होती है।"]],
+      [["Buy and sell direct", "நேரடியாக வாங்கி விற்பனை", "सीधी खरीद और बिक्री"], ["UzhavGrow buys from the farmer and sells to supermarkets, processors and customers without layers of traders.", "UzhavGrow விவசாயியிடமிருந்து வாங்கி, பல அடுக்கு வியாபாரிகள் இல்லாமல் பல்பொருள் அங்காடிகள், பதப்படுத்துவோர், வாடிக்கையாளர்களுக்கு விற்கிறது.", "UzhavGrow किसान से खरीदकर बिना कई परतों के व्यापारियों के सुपरमार्केट, प्रोसेसर और ग्राहकों को बेचता है।"]]
+    ];
+    const steps = stepsSrc.map((s, i) => ({ n: i + 1, title: pick(s[0]), body: pick(s[1]) }));
+
+    const sensorsSrc = [
+      ["#2F8FD0", ["Soil moisture", "மண் ஈரப்பதம்", "मिट्टी की नमी"], ["Tells when and how much to irrigate.", "எப்போது எவ்வளவு பாசனம் செய்ய வேண்டும் என்று சொல்கிறது.", "बताता है कि कब और कितनी सिंचाई करनी है।"]],
+      ["#7AA63A", ["Soil pH and nutrients", "மண் pH மற்றும் ஊட்டச்சத்து", "मिट्टी का pH और पोषक तत्व"], ["Guides the fertiliser dose for each zone.", "ஒவ்வொரு மண்டலத்துக்குமான உர அளவை வழிநடத்துகிறது.", "हर क्षेत्र के लिए खाद की मात्रा तय करने में मदद करता है।"]],
+      ["#E3A21A", ["Weather station", "வானிலை நிலையம்", "मौसम केंद्र"], ["Rain, temperature and humidity for spray and harvest timing.", "தெளிப்பு மற்றும் அறுவடை நேரத்துக்கான மழை, வெப்பம், ஈரப்பதம்.", "छिड़काव और कटाई के समय के लिए बारिश, तापमान और नमी।"]],
+      ["#C0553B", ["Leaf and pest traps", "இலை மற்றும் பூச்சி பொறிகள்", "पत्ती और कीट ट्रैप"], ["Early warning for disease and pest pressure.", "நோய் மற்றும் பூச்சி தாக்குதலுக்கான முன்னெச்சரிக்கை.", "रोग और कीट के दबाव की पहले से चेतावनी।"]]
+    ];
+    const sensors = sensorsSrc.map((s) => ({ color: s[0], title: pick(s[1]), body: pick(s[2]) }));
+
+    const chainSrc = [
+      ["Harvest at the right time", "சரியான நேரத்தில் அறுவடை", "सही समय पर कटाई"],
+      ["Sort and grade", "தரம் பிரித்தல்", "छंटाई और ग्रेडिंग"],
+      ["Cool and pack", "குளிர்வித்து பொதியிடல்", "ठंडा करना और पैक करना"],
+      ["Dispatch direct to buyer", "வாங்குபவருக்கு நேரடி அனுப்புதல்", "खरीदार को सीधी ढुलाई"]
+    ];
+    const chain = chainSrc.map((c) => ({ title: pick(c) }));
+
+    const farmerSrc = [
+      ["A buyer committed before sowing", "விதைப்புக்கு முன்பே உறுதியான வாங்குபவர்", "बुवाई से पहले ही तय खरीदार"],
+      ["Inputs at bulk prices, with credit settled from the harvest", "மொத்த விலையில் இடுபொருட்கள்; கடன் அறுவடையில் ஈடு செய்யப்படும்", "थोक भाव पर सामग्री, उधार की भरपाई उपज से"],
+      ["Satellite, sensor and drone advice at no extra equipment cost", "கூடுதல் கருவி செலவு இல்லாமல் செயற்கைக்கோள், சென்சார், ட்ரோன் ஆலோசனை", "बिना अलग उपकरण खर्च के सैटेलाइट, सेंसर और ड्रोन की सलाह"],
+      ["A larger share of the final price", "இறுதி விலையில் பெரிய பங்கு", "अंतिम कीमत में बड़ा हिस्सा"]
+    ];
+    const companySrc = [
+      ["Steady, graded supply for supermarket contracts", "பல்பொருள் அங்காடி ஒப்பந்தங்களுக்கு நிலையான, தரம் பிரிக்கப்பட்ட விநியோகம்", "सुपरमार्केट अनुबंधों के लिए स्थिर, ग्रेडेड आपूर्ति"],
+      ["Quality control from seed to shelf", "விதை முதல் அலமாரி வரை தர கட்டுப்பாடு", "बीज से शेल्फ तक गुणवत्ता नियंत्रण"],
+      ["Lower input cost from bulk buying", "மொத்த கொள்முதலால் குறைந்த இடுபொருள் செலவு", "थोक खरीद से कम लागत"],
+      ["Margin kept by removing layers of traders", "வியாபாரிகளின் அடுக்குகளை நீக்குவதால் கிடைக்கும் லாபம்", "व्यापारियों की परतें हटाने से बचा मुनाफ़ा"]
+    ];
+    const farmerPoints = farmerSrc.map((f) => ({ text: pick(f) }));
+    const companyPoints = companySrc.map((f) => ({ text: pick(f) }));
+
+    const harvest = [30, 55, 80, 70, 45, 25];
+    const demand = [50, 60, 65, 75, 60, 50];
+    const bars = harvest.map((h, i) => ({ n: i + 1, h: h + '%', d: demand[i] + '%' }));
+
+    const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+    const ramp = (stops, v) => {
+      for (let i = 1; i < stops.length; i++) {
+        if (v <= stops[i][0] || i === stops.length - 1) {
+          const a0 = stops[i - 1][0], a1 = stops[i][0];
+          const A = hex(stops[i - 1][1]), B = hex(stops[i][1]);
+          const k = Math.min(1, Math.max(0, (v - a0) / (a1 - a0)));
+          return 'rgb(' + A.map((x, j) => Math.round(x + (B[j] - x) * k)).join(',') + ')';
+        }
+      }
+      return '#888888';
+    };
+    const cropStops = [[0, '#D64545'], [0.4, '#E8B33A'], [0.7, '#7DBF4A'], [1, '#1F8A4C']];
+    const soilStops = [[0, '#E9D8B4'], [0.5, '#B58A55'], [1, '#6E4526']];
+    const cropCells = [];
+    const soilCells = [];
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 12; c++) {
+        const a = Math.sin(c * 0.62 + r * 0.35) + Math.cos(r * 0.9 - c * 0.25);
+        let v = (a + 2) / 4;
+        const block = Math.floor(c / 4) + Math.floor(r / 4) * 3;
+        v = Math.min(1, Math.max(0, v * 0.7 + (block % 3) * 0.12));
+        cropCells.push({ bg: ramp(cropStops, v), cls: v < 0.3 ? 'pulse' : '' });
+        const w = 0.5 + 0.5 * Math.sin(c * 0.45 + 0.4) * Math.cos(r * 0.6 + 1);
+        soilCells.push({ bg: ramp(soilStops, Math.min(1, Math.max(0, w))) });
+      }
+    }
+
+    const names = [['en', 'English'], ['ta', 'தமிழ்'], ['hi', 'हिन्दी']];
+    const langs = names.map((n) => ({
+      label: n[1],
+      pressed: lang === n[0],
+      bg: lang === n[0] ? '#4ADE9A' : 'transparent',
+      fg: lang === n[0] ? '#06231D' : '#E6F1ED',
+      pick: () => this.setState({ lang: n[0] })
+    }));
+
+    return { code: lang, t, langs, problems, steps, sensors, chain, farmerPoints, companyPoints, bars, cropCells, soilCells };
+  }
+}
+</script>
+</body>
+</html>
